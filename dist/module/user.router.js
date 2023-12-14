@@ -1,0 +1,20 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.userRouter = void 0;
+const express_1 = __importDefault(require("express"));
+const validationRequest_1 = __importDefault(require("../middleware/validationRequest"));
+const user_controller_1 = require("./user.controller");
+const user_validation_1 = require("./user.validation");
+const router = express_1.default.Router();
+router.post('/', (0, validationRequest_1.default)(user_validation_1.TuserValidation.TuserValidationSchema), user_controller_1.userControllers.createUser);
+router.get('/', user_controller_1.userControllers.getAlluser);
+router.get('/:userId', user_controller_1.userControllers.getAUser);
+router.put('/:userId', (0, validationRequest_1.default)(user_validation_1.TuserValidation.TuserValidationSchema), user_controller_1.userControllers.UpdateAUser);
+router.delete('/:userId', user_controller_1.userControllers.deleteAUser);
+router.put('/:userId/orders', user_controller_1.userControllers.addProduct);
+router.get('/:userId/orders', user_controller_1.userControllers.getAllProduct);
+router.get('/:userId/orders/total-price', user_controller_1.userControllers.getAllProductPrice);
+exports.userRouter = router;
